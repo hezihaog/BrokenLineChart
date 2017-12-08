@@ -184,60 +184,59 @@ public class BrokenLineChart extends View {
         //左边文本画笔
         if (mLeftTextPaint == null) {
             mLeftTextPaint = new Paint();
-            mLeftTextPaint.setColor(leftTextColor);
-            mLeftTextPaint.setTextSize(sp2px(16));
-            mLeftTextPaint.setTextAlign(Paint.Align.RIGHT);
-            mLeftTextPaint.setStyle(Paint.Style.STROKE);
-            mLeftTextPaint.setAntiAlias(true);
-            mLeftTextPaint.setTextAlign(Paint.Align.RIGHT);
         }
+        mLeftTextPaint.setColor(leftTextColor);
+        mLeftTextPaint.setTextSize(sp2px(16));
+        mLeftTextPaint.setTextAlign(Paint.Align.RIGHT);
+        mLeftTextPaint.setStyle(Paint.Style.STROKE);
+        mLeftTextPaint.setAntiAlias(true);
+        mLeftTextPaint.setTextAlign(Paint.Align.RIGHT);
 
         //底部文本画笔
         if (mBottomTextPaint == null) {
             mBottomTextPaint = new Paint();
-            //底部文字
-            mBottomTextPaint.setColor(bottomNomalTextColor);
-            mBottomTextPaint.setTextSize(sp2px(15));
-            mBottomTextPaint.setTextAlign(Paint.Align.RIGHT);
-            mBottomTextPaint.setStyle(Paint.Style.STROKE);
-            mBottomTextPaint.setAntiAlias(true);
         }
+        mBottomTextPaint.setColor(bottomNomalTextColor);
+        mBottomTextPaint.setTextSize(sp2px(15));
+        mBottomTextPaint.setTextAlign(Paint.Align.RIGHT);
+        mBottomTextPaint.setStyle(Paint.Style.STROKE);
+        mBottomTextPaint.setAntiAlias(true);
 
         //初始化边框线画笔
         if (mBorderLinePaint == null) {
             mBorderLinePaint = new Paint();
-            mBorderLinePaint.setTextSize(20);
-            mBorderLinePaint.setColor(leftTextColor);
-            mBorderLinePaint.setStrokeWidth(dp2px(0.7f));
-            mBorderLinePaint.setColor(dividerColor);
-            mBorderLinePaint.setTextAlign(Paint.Align.RIGHT);
-            mBorderLinePaint.setStyle(Paint.Style.STROKE);
-            mBorderLinePaint.setAntiAlias(true);
         }
+        mBorderLinePaint.setTextSize(20);
+        mBorderLinePaint.setColor(leftTextColor);
+        mBorderLinePaint.setStrokeWidth(dp2px(0.7f));
+        mBorderLinePaint.setColor(dividerColor);
+        mBorderLinePaint.setTextAlign(Paint.Align.RIGHT);
+        mBorderLinePaint.setStyle(Paint.Style.STROKE);
+        mBorderLinePaint.setAntiAlias(true);
 
         //初始化折线画笔
         if (mBrokenLinePaint == null) {
             mBrokenLinePaint = new Paint();
-            mBrokenLinePaint.setColor(brokenLineColor);
-            mBrokenLinePaint.setStrokeWidth(2);
-            mBrokenLinePaint.setStyle(Paint.Style.STROKE);
         }
+        mBrokenLinePaint.setColor(brokenLineColor);
+        mBrokenLinePaint.setStrokeWidth(2);
+        mBrokenLinePaint.setStyle(Paint.Style.STROKE);
 
         //折线之间的原点画笔
         if (mBrokenLineCirclePaint == null) {
             mBrokenLineCirclePaint = new Paint();
-            mBrokenLineCirclePaint.setStyle(Paint.Style.STROKE);
-            mBrokenLineCirclePaint.setAntiAlias(true);
         }
+        mBrokenLineCirclePaint.setStyle(Paint.Style.STROKE);
+        mBrokenLineCirclePaint.setAntiAlias(true);
 
         //着重点到底部横坐标的竖线的画笔
         if (mStressPointDistanceBottomLinePaint == null) {
             mStressPointDistanceBottomLinePaint = new Paint();
-            mStressPointDistanceBottomLinePaint.setStyle(Paint.Style.STROKE);
-            mStressPointDistanceBottomLinePaint.setAntiAlias(true);
-            mStressPointDistanceBottomLinePaint.setColor(stressPointDistanceBottomLineColor);
-            mStressPointDistanceBottomLinePaint.setStrokeWidth(1.5f);
         }
+        mStressPointDistanceBottomLinePaint.setStyle(Paint.Style.STROKE);
+        mStressPointDistanceBottomLinePaint.setAntiAlias(true);
+        mStressPointDistanceBottomLinePaint.setColor(stressPointDistanceBottomLineColor);
+        mStressPointDistanceBottomLinePaint.setStrokeWidth(1.5f);
     }
 
     /**
@@ -290,6 +289,7 @@ public class BrokenLineChart extends View {
 //        Rect rect = new Rect((int) mBrokenLineLeft + mChartLeftOffset, 0, (int) (mChartRegionWidth + mBrokenLineLeft + mChartLeftOffset), (int) mChartRegionHeight);
 //        canvas.drawRect(rect, paint);
 
+        initPaint();
         //绘制图表横坐标每个刻度之间的横线
         DrawBorderLine(canvas);
         //绘制左边的刻度文字和刻度横线
