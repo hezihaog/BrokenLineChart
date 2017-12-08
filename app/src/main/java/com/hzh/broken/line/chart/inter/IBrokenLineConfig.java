@@ -11,6 +11,7 @@ package com.hzh.broken.line.chart.inter;
 
 public interface IBrokenLineConfig {
     //***************************** 子类需要重写的配置方法 *******************************
+
     /**
      * 左边刻度文本数组
      */

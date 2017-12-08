@@ -6,9 +6,72 @@
     android:orientation="vertical"
     tools:context="com.hzh.broken.line.chart.MainActivity">
 
-    <android.support.v4.widget.Space
+    <RadioGroup
+        android:id="@+id/typeRadioGroup"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/totalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_broken_line_check"
+            android:button="@null"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="整体"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/workButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:background="@drawable/bg_broken_line_check"
+            android:button="@null"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="工作"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/moneyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:background="@drawable/bg_broken_line_check"
+            android:button="@null"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="财富"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/loveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:background="@drawable/bg_broken_line_check"
+            android:button="@null"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="情感"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"

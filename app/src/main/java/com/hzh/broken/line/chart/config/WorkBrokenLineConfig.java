@@ -12,7 +12,6 @@ import android.graphics.Color;
  */
 
 public abstract class WorkBrokenLineConfig extends BaseBrokenLineConfig {
-
     @Override
     public int onGetBottomStressPointIndex() {
         return 2;
