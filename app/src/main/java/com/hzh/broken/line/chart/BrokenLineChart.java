@@ -69,35 +69,35 @@ public class BrokenLineChart extends View {
     /**
      * 图表绘制的宽度
      */
-    private float mChatRegionWidth;
+    private float mChartRegionWidth;
     /**
      * 图表绘制的高度
      */
-    private float mChatRegionHeight;
+    private float mChartRegionHeight;
     /**
      * 左边刻度文本数组
      */
-    private String[] leftTextArr = new String[]{"极好", "不错", "还行", "平平", "不佳", ""};
+    private String[] mLeftTextArr = new String[]{"极好", "不错", "还行", "平平", "不佳", ""};
     /**
      * 底部文本数组
      */
-    private String[] bottomTextArr = new String[]{"一", "二", "三", "四", "五", "六", "七"};
+    private String[] mBottomTextArr = new String[]{"一", "二", "三", "四", "五", "六", "七"};
     /**
      * 数据值
      */
-    private int[] values = new int[]{20, 80, 60, 80, 80, 40, 60};
+    private int[] mValues = new int[]{20, 80, 60, 80, 80, 40, 60};
     /**
      * 图表的最大值
      */
-    private int maxVlaue = 100;
+    private int mMaxValue = 100;
     /**
      * 折线表起点距离左边偏移
      */
-    private final int mChatLeftOffset = dp2px(15);
+    private final int mChartLeftOffset = dp2px(15);
     /**
      * 折现表终点距离右边的偏移
      */
-    private final int mChatRightOffset = dp2px(22);
+    private final int mChartRightOffset = dp2px(22);
     /**
      * 底部文字距离表格的距离
      */
@@ -105,11 +105,11 @@ public class BrokenLineChart extends View {
     /**
      * 着重色原点角标
      */
-    private int bottomStressPointIndex = 1;
+    private int mBottomStressPointIndex = 1;
     /**
      * 着重色原点颜色
      */
-    private int stressPointColor = Color.parseColor("#8943C9");
+    private int mStressPointColor = Color.parseColor("#8943C9");
     /**
      * 着重色原点距离底部的画的线的颜色
      */
@@ -233,6 +233,8 @@ public class BrokenLineChart extends View {
             mStressPointDistanceBottomLinePaint = new Paint();
             mStressPointDistanceBottomLinePaint.setStyle(Paint.Style.STROKE);
             mStressPointDistanceBottomLinePaint.setAntiAlias(true);
+            mStressPointDistanceBottomLinePaint.setColor(stressPointDistanceBottomLineColor);
+            mStressPointDistanceBottomLinePaint.setStrokeWidth(1.5f);
         }
     }
 
@@ -242,19 +244,19 @@ public class BrokenLineChart extends View {
     private void initNeedDrawWidthAndHeight() {
         //图表左侧距离View左边界的距离
         Rect leftTextRect = new Rect();
-        mLeftTextPaint.getTextBounds(leftTextArr[0], 0, leftTextArr[0].length(), leftTextRect);
+        mLeftTextPaint.getTextBounds(mLeftTextArr[0], 0, mLeftTextArr[0].length(), leftTextRect);
         mBrokenLineLeft = leftTextRect.right + dp2px(16);
         //图表的宽度，总宽度减去左边文字刻度到屏幕左侧和图表距离屏幕右侧的范围
-        mChatRegionWidth = mViewWidth - mBrokenLineLeft - mBrokenLinerRight;
+        mChartRegionWidth = mViewWidth - mBrokenLineLeft - mBrokenLinerRight;
         //图表的高度，总高度减去
-        mChatRegionHeight = mViewHeight - mBrokenLineTop - mBrokenLineBottom;
+        mChartRegionHeight = mViewHeight - mBrokenLineTop - mBrokenLineBottom;
 
         //折线绘制范围宽度，图表的宽度减去起点偏移和终点偏移
-        mBrokenLineDrawRegionWidth = mChatRegionWidth - mChatLeftOffset - mChatRightOffset;
+        mBrokenLineDrawRegionWidth = mChartRegionWidth - mChartLeftOffset - mChartRightOffset;
         //折线绘制范围高度，就是图表的高度
-        mBrokenLineDrawRegionHeight = mChatRegionHeight;
+        mBrokenLineDrawRegionHeight = mChartRegionHeight;
         //行高，每个刻度分隔线之间的距离
-        singleRowHeight = mChatRegionHeight / leftTextArr.length - 1;
+        singleRowHeight = mChartRegionHeight / mLeftTextArr.length - 1;
     }
 
     @Override
@@ -283,7 +285,7 @@ public class BrokenLineChart extends View {
         //测试用，画了整个图标的区域
 //        Paint paint = new Paint();
 //        paint.setColor(Color.parseColor("#6600FF00"));
-//        Rect rect = new Rect((int) mBrokenLineLeft + mChatLeftOffset, 0, (int) (mChatRegionWidth + mBrokenLineLeft + mChatLeftOffset), (int) mChatRegionHeight);
+//        Rect rect = new Rect((int) mBrokenLineLeft + mChartLeftOffset, 0, (int) (mChartRegionWidth + mBrokenLineLeft + mChartLeftOffset), (int) mChartRegionHeight);
 //        canvas.drawRect(rect, paint);
 
         //绘制图表横坐标每个刻度之间的横线
@@ -329,15 +331,15 @@ public class BrokenLineChart extends View {
         /**
          * 绘制边框分段横线与分段文本
          */
-        float averageHeight = mChatRegionHeight / (leftTextArr.length - 1);
-        for (int i = 0; i < leftTextArr.length; i++) {
+        float averageHeight = mChartRegionHeight / (mLeftTextArr.length - 1);
+        for (int i = 0; i < mLeftTextArr.length; i++) {
             float currentWidth = averageHeight * i;
             //画分隔横线
             canvas.drawLine(mBrokenLineLeft, currentWidth + mBrokenLineTop, mViewWidth - mBrokenLinerRight, currentWidth + mBrokenLineTop, mBorderLinePaint);
             Rect rect = new Rect();
-            mLeftTextPaint.getTextBounds(leftTextArr[i], 0, leftTextArr[i].length(), rect);
+            mLeftTextPaint.getTextBounds(mLeftTextArr[i], 0, mLeftTextArr[i].length(), rect);
             //画左边的纵坐标文字
-            canvas.drawText(leftTextArr[i], mBrokenLineLeft - leftDistanceChart, currentWidth + mBrokenLineTop + (rect.height() / 3f), mLeftTextPaint);
+            canvas.drawText(mLeftTextArr[i], mBrokenLineLeft - leftDistanceChart, currentWidth + mBrokenLineTop + (rect.height() / 3f), mLeftTextPaint);
         }
     }
 
@@ -347,19 +349,19 @@ public class BrokenLineChart extends View {
     private void DrawBottomText(Canvas canvas) {
         //测量文字宽度
         Rect bottomTextRect = new Rect();
-        mBottomTextPaint.getTextBounds(bottomTextArr[0], 0, bottomTextArr[0].length(), bottomTextRect);
+        mBottomTextPaint.getTextBounds(mBottomTextArr[0], 0, mBottomTextArr[0].length(), bottomTextRect);
         //第一个文字距离View左边的距离,总宽度减去图标的宽度，再减去起点偏移的一半
-        int firstToLeftDistance = (int) (mViewWidth - mChatRegionWidth - (mChatLeftOffset / 2));
+        int firstToLeftDistance = (int) (mViewWidth - mChartRegionWidth - (mChartLeftOffset / 2));
         //平均宽度，表总宽度减去左边的偏移的一半和右边偏移的一半，再除以全部文字，求出每个文字需要的宽度
-        float averageWidth = (mChatRegionWidth - mChatLeftOffset / 2 - mChatRightOffset / 2) / (bottomTextArr.length);
-        for (int i = 0; i < bottomTextArr.length; i++) {
+        float averageWidth = (mChartRegionWidth - mChartLeftOffset / 2 - mChartRightOffset / 2) / (mBottomTextArr.length);
+        for (int i = 0; i < mBottomTextArr.length; i++) {
             float currentWidth = averageWidth * (i + 1);
-            if (i == bottomStressPointIndex) {
+            if (i == mBottomStressPointIndex) {
                 mBottomTextPaint.setColor(bottomStressTextColor);
             } else {
                 mBottomTextPaint.setColor(bottomNomalTextColor);
             }
-            canvas.drawText(bottomTextArr[i], currentWidth + firstToLeftDistance, mBrokenLineTop + mChatRegionHeight + mBottomTextDistanceChart + bottomTextRect.height(), mBottomTextPaint);
+            canvas.drawText(mBottomTextArr[i], currentWidth + firstToLeftDistance, mBrokenLineTop + mChartRegionHeight + mBottomTextDistanceChart + bottomTextRect.height(), mBottomTextPaint);
         }
     }
 
@@ -372,7 +374,7 @@ public class BrokenLineChart extends View {
         Path mPath = new Path();
         //设置成填充，才能后面设置渐变填充整个图形
         mBrokenLinePaint.setStyle(Paint.Style.FILL);
-        float endY = mChatRegionHeight + mBrokenLineTop;
+        float endY = mChartRegionHeight + mBrokenLineTop;
         //添加渐变
         Shader shader = new LinearGradient(0, 0, 0, endY, brokenCloseRegionStartColor, brokenCloseRegionEndColor, Shader.TileMode.CLAMP);
         mBrokenLinePaint.setShader(shader);
@@ -398,8 +400,7 @@ public class BrokenLineChart extends View {
         canvas.drawPath(mPath, mBrokenLinePaint);
 
         //画着重点到底部的线，同样Y轴就是整个图表的高度
-        mStressPointDistanceBottomLinePaint.setColor(stressPointDistanceBottomLineColor);
-        Point stressPoint = points[bottomStressPointIndex];
+        Point stressPoint = points[mBottomStressPointIndex];
         canvas.drawLine(stressPoint.x, stressPoint.y, stressPoint.x
                 , endY, mStressPointDistanceBottomLinePaint);
     }
@@ -412,7 +413,7 @@ public class BrokenLineChart extends View {
      */
     private float calculatePointStepHeight(float pointY) {
         //计算横跨的多少个的行高
-        float lineNumber = mChatRegionHeight / pointY;
+        float lineNumber = mChartRegionHeight / pointY;
         //最后计算全部行高的距离
         return singleRowHeight * lineNumber;
     }
@@ -425,8 +426,8 @@ public class BrokenLineChart extends View {
         for (int i = 0; i < points.length; i++) {
             //画圆点
             Point point = points[i];
-            if (i == bottomStressPointIndex) {
-                mBrokenLineCirclePaint.setColor(stressPointColor);
+            if (i == mBottomStressPointIndex) {
+                mBrokenLineCirclePaint.setColor(mStressPointColor);
             } else {
                 mBrokenLineCirclePaint.setColor(nomalPointColor);
             }
@@ -449,9 +450,9 @@ public class BrokenLineChart extends View {
      */
     public Point[] getPoints() {
         //全部数值数组
-        int[] valueList = values;
+        int[] valueList = mValues;
         //图表纵坐标的最大值
-        int max = maxVlaue;
+        int max = mMaxValue;
         //折线绘制范围的高度
         float height = mBrokenLineDrawRegionHeight;
         //折线绘制范围的宽度，就是图表宽度减去左偏移和右偏移
@@ -468,8 +469,8 @@ public class BrokenLineChart extends View {
             float drawHeight = (float) (value / meanHeight);
             int pointY = (int) (height - drawHeight + mBrokenLineTop);
             //横坐标的坐标，就是每个点的距离乘以位置，（每个点之间的距离是固定的）
-            //mBrokenLineLeft + mChatLeftOffset的意思是让点在图表偏移后的范围开始画点，因为我们的View绘制的坐标轴是以整个View的左上角开始
-            int pointX = (int) (meanPointDistance * i) + (int) (mBrokenLineLeft + mChatLeftOffset);
+            //mBrokenLineLeft + mChartLeftOffset的意思是让点在图表偏移后的范围开始画点，因为我们的View绘制的坐标轴是以整个View的左上角开始
+            int pointX = (int) (meanPointDistance * i) + (int) (mBrokenLineLeft + mChartLeftOffset);
             Point point = new Point(pointX, pointY);
             points[i] = point;
         }
@@ -498,7 +499,275 @@ public class BrokenLineChart extends View {
                 spVal, getResources().getDisplayMetrics());
     }
 
-    public void configAndDrawView() {
-//        this.left
+    /**
+     * 配置类
+     */
+    public static class Config {
+        /**
+         * 左边刻度文本数组
+         */
+        private String[] leftTextArr;
+        /**
+         * 底部文本数组
+         */
+        private String[] bottomTextArr;
+        /**
+         * 数据值
+         */
+        private int[] values;
+        /**
+         * 图表的最大值
+         */
+        private int maxValue;
+        /**
+         * 着重色原点角标
+         */
+        private int bottomStressPointIndex = 0;
+        /**
+         * 着重色原点颜色
+         */
+        private int stressPointColor;
+        /**
+         * 着重色原点距离底部的画的线的颜色
+         */
+        private int stressPointDistanceBottomLineColor;
+        /**
+         * 普通点的颜色
+         */
+        private int nomalPointColor;
+        /**
+         * 折线颜色
+         */
+        private int brokenLineColor;
+        /**
+         * 左边文字的颜色
+         */
+        private int leftTextColor;
+        /**
+         * 底部日期着重字颜色
+         */
+        private int bottomStressTextColor;
+        /**
+         * 底部普通日期字颜色
+         */
+        private int bottomNomalTextColor;
+        /**
+         * 横线的颜色
+         */
+        private int dividerColor;
+        /**
+         * 封闭折线区域的图形渐变开始颜色
+         */
+        private int brokenCloseRegionStartColor;
+        /**
+         * 封闭折线区域的图形渐变结束颜色
+         */
+        private int brokenCloseRegionEndColor;
+
+        private Config() {
+        }
+
+        public Config(Build build) {
+            this.leftTextArr = build.leftTextArr;
+            this.bottomTextArr = build.bottomTextArr;
+            this.values = build.values;
+            this.maxValue = build.maxValue;
+            this.bottomStressPointIndex = build.bottomStressPointIndex;
+            this.stressPointColor = build.stressPointColor;
+            this.stressPointDistanceBottomLineColor = build.stressPointDistanceBottomLineColor;
+            this.nomalPointColor = build.nomalPointColor;
+            this.brokenLineColor = build.brokenLineColor;
+            this.leftTextColor = build.leftTextColor;
+            this.bottomStressTextColor = build.bottomStressTextColor;
+            this.bottomNomalTextColor = build.bottomNomalTextColor;
+            this.dividerColor = build.dividerColor;
+            this.brokenCloseRegionStartColor = build.brokenCloseRegionStartColor;
+            this.brokenCloseRegionEndColor = build.brokenCloseRegionEndColor;
+        }
+
+        public static Build newBuilder() {
+            return new Build();
+        }
+
+        public String[] getLeftTextArr() {
+            return leftTextArr;
+        }
+
+        public String[] getBottomTextArr() {
+            return bottomTextArr;
+        }
+
+        public int[] getValues() {
+            return values;
+        }
+
+        public int getMaxValue() {
+            return maxValue;
+        }
+
+        public int getBottomStressPointIndex() {
+            return bottomStressPointIndex;
+        }
+
+        public int getStressPointColor() {
+            return stressPointColor;
+        }
+
+        public int getStressPointDistanceBottomLineColor() {
+            return stressPointDistanceBottomLineColor;
+        }
+
+        public int getNomalPointColor() {
+            return nomalPointColor;
+        }
+
+        public int getBrokenLineColor() {
+            return brokenLineColor;
+        }
+
+        public int getLeftTextColor() {
+            return leftTextColor;
+        }
+
+        public int getBottomStressTextColor() {
+            return bottomStressTextColor;
+        }
+
+        public int getBottomNomalTextColor() {
+            return bottomNomalTextColor;
+        }
+
+        public int getDividerColor() {
+            return dividerColor;
+        }
+
+        public int getBrokenCloseRegionStartColor() {
+            return brokenCloseRegionStartColor;
+        }
+
+        public int getBrokenCloseRegionEndColor() {
+            return brokenCloseRegionEndColor;
+        }
+
+        public static class Build {
+            private String[] leftTextArr;
+            private String[] bottomTextArr;
+            private int[] values;
+            private int maxValue;
+            private int bottomStressPointIndex = 0;
+            private int stressPointColor;
+            private int stressPointDistanceBottomLineColor;
+            private int nomalPointColor;
+            private int brokenLineColor;
+            private int leftTextColor;
+            private int bottomStressTextColor;
+            private int bottomNomalTextColor;
+            private int dividerColor;
+            private int brokenCloseRegionStartColor;
+            private int brokenCloseRegionEndColor;
+
+            public Build setLeftTextArr(String[] leftTextArr) {
+                this.leftTextArr = leftTextArr;
+                return this;
+            }
+
+            public Build setBottomTextArr(String[] bottomTextArr) {
+                this.bottomTextArr = bottomTextArr;
+                return this;
+            }
+
+            public Build setValues(int[] values) {
+                this.values = values;
+                return this;
+            }
+
+            public Build setMaxValue(int maxValue) {
+                this.maxValue = maxValue;
+                return this;
+            }
+
+            public Build setBottomStressPointIndex(int bottomStressPointIndex) {
+                this.bottomStressPointIndex = bottomStressPointIndex;
+                return this;
+            }
+
+            public Build setStressPointColor(int stressPointColor) {
+                this.stressPointColor = stressPointColor;
+                return this;
+            }
+
+            public Build setStressPointDistanceBottomLineColor(int stressPointDistanceBottomLineColor) {
+                this.stressPointDistanceBottomLineColor = stressPointDistanceBottomLineColor;
+                return this;
+            }
+
+            public Build setNomalPointColor(int nomalPointColor) {
+                this.nomalPointColor = nomalPointColor;
+                return this;
+            }
+
+            public Build setBrokenLineColor(int brokenLineColor) {
+                this.brokenLineColor = brokenLineColor;
+                return this;
+            }
+
+            public Build setLeftTextColor(int leftTextColor) {
+                this.leftTextColor = leftTextColor;
+                return this;
+            }
+
+            public Build setBottomStressTextColor(int bottomStressTextColor) {
+                this.bottomStressTextColor = bottomStressTextColor;
+                return this;
+            }
+
+            public Build setBottomNomalTextColor(int bottomNomalTextColor) {
+                this.bottomNomalTextColor = bottomNomalTextColor;
+                return this;
+            }
+
+            public Build setDividerColor(int dividerColor) {
+                this.dividerColor = dividerColor;
+                return this;
+            }
+
+            public Build setBrokenCloseRegionStartColor(int brokenCloseRegionStartColor) {
+                this.brokenCloseRegionStartColor = brokenCloseRegionStartColor;
+                return this;
+            }
+
+            public Build setBrokenCloseRegionEndColor(int brokenCloseRegionEndColor) {
+                this.brokenCloseRegionEndColor = brokenCloseRegionEndColor;
+                return this;
+            }
+
+            public Config build() {
+                return new Config(this);
+            }
+        }
+    }
+
+    /**
+     * 设置配置，并且重新绘制
+     *
+     * @param config 配置类
+     */
+    public void configAndDrawView(Config config) {
+        this.mLeftTextArr = config.getLeftTextArr();
+        this.mBottomTextArr = config.getBottomTextArr();
+        this.mValues = config.values;
+        this.mMaxValue = config.getMaxValue();
+        this.mBottomStressPointIndex = config.getBottomStressPointIndex();
+        this.mStressPointColor = config.getStressPointColor();
+        this.stressPointDistanceBottomLineColor = config.getStressPointDistanceBottomLineColor();
+        this.nomalPointColor = config.getNomalPointColor();
+        this.brokenLineColor = config.getBrokenLineColor();
+        this.leftTextColor = config.getLeftTextColor();
+        this.bottomStressTextColor = config.getBottomStressTextColor();
+        this.bottomNomalTextColor = config.getBottomNomalTextColor();
+        this.dividerColor = config.getDividerColor();
+        this.brokenCloseRegionStartColor = config.getBrokenCloseRegionStartColor();
+        this.brokenCloseRegionEndColor = config.getBrokenCloseRegionEndColor();
+        postInvalidate();
     }
 }
