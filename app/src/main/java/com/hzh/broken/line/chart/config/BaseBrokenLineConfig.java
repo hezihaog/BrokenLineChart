@@ -124,14 +124,6 @@ public abstract class BaseBrokenLineConfig implements IBrokenLineConfig {
     }
 
     /**
-     * 普通点的颜色
-     */
-    @Override
-    public int onGetNomalPointColor() {
-        return Color.parseColor("#C17DFF");
-    }
-
-    /**
      * 左边文字的颜色
      */
     @Override

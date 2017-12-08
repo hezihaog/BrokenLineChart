@@ -29,6 +29,14 @@ public abstract class TotalBrokenLineConfig extends BaseBrokenLineConfig {
     }
 
     /**
+     * 普通点的颜色
+     */
+    @Override
+    public int onGetNomalPointColor() {
+        return Color.parseColor("#C17DFF");
+    }
+
+    /**
      * 着重色原点距离底部的画的线的颜色
      */
     @Override
@@ -65,6 +73,6 @@ public abstract class TotalBrokenLineConfig extends BaseBrokenLineConfig {
      */
     @Override
     public int onGetBrokenCloseRegionEndColor() {
-        return Color.parseColor("#4DD1B6EA");
+        return Color.parseColor("#D1B6EA");
     }
 }
