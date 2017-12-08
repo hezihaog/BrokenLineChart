@@ -57,7 +57,7 @@ public class BrokenLineChart extends View {
     /**
      * 边框的上边距
      */
-    private float mBrokenLineTop = dp2px(0);
+    private float mBrokenLineTop = dp2px(10);
     /**
      * 边框的下边距
      */
@@ -85,7 +85,7 @@ public class BrokenLineChart extends View {
     /**
      * 数据值
      */
-    private int[] values = new int[]{45, 60, 58, 52, 74, 25, 35};
+    private int[] values = new int[]{20, 80, 60, 80, 80, 40, 60};
     /**
      * 图表的最大值
      */
@@ -154,11 +154,17 @@ public class BrokenLineChart extends View {
      * 是否处理了padding
      */
     private boolean isHandlePadding = false;
-    //折线绘制范围宽度，图表的宽度减去起点偏移和终点偏移
+    /**
+     * 折线绘制范围宽度，图表的宽度减去起点偏移和终点偏移
+     */
     private float mBrokenLineDrawRegionWidth;
-    //折线绘制范围高度，就是图表的高度
+    /**
+     * 折线绘制范围高度，就是图表的高度
+     */
     private float mBrokenLineDrawRegionHeight;
-    //行高，每个分隔线之间的距离
+    /**
+     * 行高，每个分隔线之间的距离
+     */
     private float singleRowHeight;
 
     public BrokenLineChart(Context context) {
@@ -282,8 +288,8 @@ public class BrokenLineChart extends View {
 
         //绘制图表横坐标每个刻度之间的横线
         DrawBorderLine(canvas);
-        //绘制左边的刻度文字
-        DrawLeftText(canvas);
+        //绘制左边的刻度文字和刻度横线
+        DrawLeftTextAndLine(canvas);
         //绘制底部刻度文字
         DrawBottomText(canvas);
         //根据数据点绘制折线
@@ -307,11 +313,11 @@ public class BrokenLineChart extends View {
     }
 
     /**
-     * 绘制左边的刻度文字
+     * 绘制左边的刻度文字和刻度横线
      *
      * @param canvas
      */
-    private void DrawLeftText(Canvas canvas) {
+    private void DrawLeftTextAndLine(Canvas canvas) {
         /**对应的属性
          * drawLine(float startX, float startY, float stopX, float stopY, Paint paint);
          * startX   开始的x坐标
@@ -331,7 +337,7 @@ public class BrokenLineChart extends View {
             Rect rect = new Rect();
             mLeftTextPaint.getTextBounds(leftTextArr[i], 0, leftTextArr[i].length(), rect);
             //画左边的纵坐标文字
-            canvas.drawText(leftTextArr[i], mBrokenLineLeft - leftDistanceChart, currentWidth + mBrokenLineTop + rect.height(), mLeftTextPaint);
+            canvas.drawText(leftTextArr[i], mBrokenLineLeft - leftDistanceChart, currentWidth + mBrokenLineTop + (rect.height() / 3f), mLeftTextPaint);
         }
     }
 
@@ -366,22 +372,22 @@ public class BrokenLineChart extends View {
         Path mPath = new Path();
         //设置成填充，才能后面设置渐变填充整个图形
         mBrokenLinePaint.setStyle(Paint.Style.FILL);
+        float endY = mChatRegionHeight + mBrokenLineTop;
         //添加渐变
-        Shader shader = new LinearGradient(0, 0, 0, mChatRegionHeight, brokenCloseRegionStartColor, brokenCloseRegionEndColor, Shader.TileMode.CLAMP);
+        Shader shader = new LinearGradient(0, 0, 0, endY, brokenCloseRegionStartColor, brokenCloseRegionEndColor, Shader.TileMode.CLAMP);
         mBrokenLinePaint.setShader(shader);
         mBrokenLinePaint.setAntiAlias(true);
-
 
         for (int i = 0; i < points.length; i++) {
             Point point = points[i];
             if (i == 0) {
                 //第一个点，加画一条竖线到底部，Y轴就是整个图表的高度
-                mPath.moveTo(point.x, mChatRegionHeight);
+                mPath.moveTo(point.x, endY);
                 mPath.lineTo(point.x, point.y);
             } else if (i == points.length - 1) {
                 //最后一条线，再加画一条线到底部,Y轴就是整个图表的高度
                 mPath.lineTo(point.x, point.y);
-                mPath.lineTo(point.x, mChatRegionHeight);
+                mPath.lineTo(point.x, endY);
             } else {
                 //其他的线，按点连path。
                 mPath.lineTo(point.x, point.y);
@@ -395,7 +401,7 @@ public class BrokenLineChart extends View {
         mStressPointDistanceBottomLinePaint.setColor(stressPointDistanceBottomLineColor);
         Point stressPoint = points[bottomStressPointIndex];
         canvas.drawLine(stressPoint.x, stressPoint.y, stressPoint.x
-                , mChatRegionHeight, mStressPointDistanceBottomLinePaint);
+                , endY, mStressPointDistanceBottomLinePaint);
     }
 
     /**
@@ -460,7 +466,7 @@ public class BrokenLineChart extends View {
             double meanHeight = (double) max / height;
             //获取要绘制的高度，刻度值除以平均高度
             float drawHeight = (float) (value / meanHeight);
-            int pointY = (int) (height - drawHeight);
+            int pointY = (int) (height - drawHeight + mBrokenLineTop);
             //横坐标的坐标，就是每个点的距离乘以位置，（每个点之间的距离是固定的）
             //mBrokenLineLeft + mChatLeftOffset的意思是让点在图表偏移后的范围开始画点，因为我们的View绘制的坐标轴是以整个View的左上角开始
             int pointX = (int) (meanPointDistance * i) + (int) (mBrokenLineLeft + mChatLeftOffset);
@@ -490,5 +496,9 @@ public class BrokenLineChart extends View {
     protected int sp2px(float spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 spVal, getResources().getDisplayMetrics());
+    }
+
+    public void configAndDrawView() {
+//        this.left
     }
 }
