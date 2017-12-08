@@ -1,4 +1,4 @@
-package com.hzh.broken.line.chart;
+package com.hzh.broken.line.chart.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,6 +12,8 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+
+import com.hzh.broken.line.chart.inter.IBrokenLineConfig;
 
 public class BrokenLineChart extends View {
     /**
@@ -500,262 +502,14 @@ public class BrokenLineChart extends View {
     }
 
     /**
-     * 配置类
-     */
-    public static class Config {
-        /**
-         * 左边刻度文本数组
-         */
-        private String[] leftTextArr;
-        /**
-         * 底部文本数组
-         */
-        private String[] bottomTextArr;
-        /**
-         * 数据值
-         */
-        private int[] values;
-        /**
-         * 图表的最大值
-         */
-        private int maxValue;
-        /**
-         * 着重色原点角标
-         */
-        private int bottomStressPointIndex = 0;
-        /**
-         * 着重色原点颜色
-         */
-        private int stressPointColor;
-        /**
-         * 着重色原点距离底部的画的线的颜色
-         */
-        private int stressPointDistanceBottomLineColor;
-        /**
-         * 普通点的颜色
-         */
-        private int nomalPointColor;
-        /**
-         * 折线颜色
-         */
-        private int brokenLineColor;
-        /**
-         * 左边文字的颜色
-         */
-        private int leftTextColor;
-        /**
-         * 底部日期着重字颜色
-         */
-        private int bottomStressTextColor;
-        /**
-         * 底部普通日期字颜色
-         */
-        private int bottomNomalTextColor;
-        /**
-         * 横线的颜色
-         */
-        private int dividerColor;
-        /**
-         * 封闭折线区域的图形渐变开始颜色
-         */
-        private int brokenCloseRegionStartColor;
-        /**
-         * 封闭折线区域的图形渐变结束颜色
-         */
-        private int brokenCloseRegionEndColor;
-
-        private Config() {
-        }
-
-        public Config(Build build) {
-            this.leftTextArr = build.leftTextArr;
-            this.bottomTextArr = build.bottomTextArr;
-            this.values = build.values;
-            this.maxValue = build.maxValue;
-            this.bottomStressPointIndex = build.bottomStressPointIndex;
-            this.stressPointColor = build.stressPointColor;
-            this.stressPointDistanceBottomLineColor = build.stressPointDistanceBottomLineColor;
-            this.nomalPointColor = build.nomalPointColor;
-            this.brokenLineColor = build.brokenLineColor;
-            this.leftTextColor = build.leftTextColor;
-            this.bottomStressTextColor = build.bottomStressTextColor;
-            this.bottomNomalTextColor = build.bottomNomalTextColor;
-            this.dividerColor = build.dividerColor;
-            this.brokenCloseRegionStartColor = build.brokenCloseRegionStartColor;
-            this.brokenCloseRegionEndColor = build.brokenCloseRegionEndColor;
-        }
-
-        public static Build newBuilder() {
-            return new Build();
-        }
-
-        public String[] getLeftTextArr() {
-            return leftTextArr;
-        }
-
-        public String[] getBottomTextArr() {
-            return bottomTextArr;
-        }
-
-        public int[] getValues() {
-            return values;
-        }
-
-        public int getMaxValue() {
-            return maxValue;
-        }
-
-        public int getBottomStressPointIndex() {
-            return bottomStressPointIndex;
-        }
-
-        public int getStressPointColor() {
-            return stressPointColor;
-        }
-
-        public int getStressPointDistanceBottomLineColor() {
-            return stressPointDistanceBottomLineColor;
-        }
-
-        public int getNomalPointColor() {
-            return nomalPointColor;
-        }
-
-        public int getBrokenLineColor() {
-            return brokenLineColor;
-        }
-
-        public int getLeftTextColor() {
-            return leftTextColor;
-        }
-
-        public int getBottomStressTextColor() {
-            return bottomStressTextColor;
-        }
-
-        public int getBottomNomalTextColor() {
-            return bottomNomalTextColor;
-        }
-
-        public int getDividerColor() {
-            return dividerColor;
-        }
-
-        public int getBrokenCloseRegionStartColor() {
-            return brokenCloseRegionStartColor;
-        }
-
-        public int getBrokenCloseRegionEndColor() {
-            return brokenCloseRegionEndColor;
-        }
-
-        public static class Build {
-            private String[] leftTextArr;
-            private String[] bottomTextArr;
-            private int[] values;
-            private int maxValue;
-            private int bottomStressPointIndex = 0;
-            private int stressPointColor;
-            private int stressPointDistanceBottomLineColor;
-            private int nomalPointColor;
-            private int brokenLineColor;
-            private int leftTextColor;
-            private int bottomStressTextColor;
-            private int bottomNomalTextColor;
-            private int dividerColor;
-            private int brokenCloseRegionStartColor;
-            private int brokenCloseRegionEndColor;
-
-            public Build setLeftTextArr(String[] leftTextArr) {
-                this.leftTextArr = leftTextArr;
-                return this;
-            }
-
-            public Build setBottomTextArr(String[] bottomTextArr) {
-                this.bottomTextArr = bottomTextArr;
-                return this;
-            }
-
-            public Build setValues(int[] values) {
-                this.values = values;
-                return this;
-            }
-
-            public Build setMaxValue(int maxValue) {
-                this.maxValue = maxValue;
-                return this;
-            }
-
-            public Build setBottomStressPointIndex(int bottomStressPointIndex) {
-                this.bottomStressPointIndex = bottomStressPointIndex;
-                return this;
-            }
-
-            public Build setStressPointColor(int stressPointColor) {
-                this.stressPointColor = stressPointColor;
-                return this;
-            }
-
-            public Build setStressPointDistanceBottomLineColor(int stressPointDistanceBottomLineColor) {
-                this.stressPointDistanceBottomLineColor = stressPointDistanceBottomLineColor;
-                return this;
-            }
-
-            public Build setNomalPointColor(int nomalPointColor) {
-                this.nomalPointColor = nomalPointColor;
-                return this;
-            }
-
-            public Build setBrokenLineColor(int brokenLineColor) {
-                this.brokenLineColor = brokenLineColor;
-                return this;
-            }
-
-            public Build setLeftTextColor(int leftTextColor) {
-                this.leftTextColor = leftTextColor;
-                return this;
-            }
-
-            public Build setBottomStressTextColor(int bottomStressTextColor) {
-                this.bottomStressTextColor = bottomStressTextColor;
-                return this;
-            }
-
-            public Build setBottomNomalTextColor(int bottomNomalTextColor) {
-                this.bottomNomalTextColor = bottomNomalTextColor;
-                return this;
-            }
-
-            public Build setDividerColor(int dividerColor) {
-                this.dividerColor = dividerColor;
-                return this;
-            }
-
-            public Build setBrokenCloseRegionStartColor(int brokenCloseRegionStartColor) {
-                this.brokenCloseRegionStartColor = brokenCloseRegionStartColor;
-                return this;
-            }
-
-            public Build setBrokenCloseRegionEndColor(int brokenCloseRegionEndColor) {
-                this.brokenCloseRegionEndColor = brokenCloseRegionEndColor;
-                return this;
-            }
-
-            public Config build() {
-                return new Config(this);
-            }
-        }
-    }
-
-    /**
      * 设置配置，并且重新绘制
      *
      * @param config 配置类
      */
-    public void configAndDrawView(Config config) {
+    public void configAndDrawView(IBrokenLineConfig config) {
         this.mLeftTextArr = config.getLeftTextArr();
         this.mBottomTextArr = config.getBottomTextArr();
-        this.mValues = config.values;
+        this.mValues = config.getValues();
         this.mMaxValue = config.getMaxValue();
         this.mBottomStressPointIndex = config.getBottomStressPointIndex();
         this.mStressPointColor = config.getStressPointColor();
