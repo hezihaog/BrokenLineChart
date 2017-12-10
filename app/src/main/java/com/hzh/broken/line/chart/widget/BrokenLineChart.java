@@ -506,10 +506,12 @@ public class BrokenLineChart extends View {
      *
      * @param config 配置类
      */
-    public void configAndDrawView(IBrokenLineConfig config) {
+    public void configAndDrawView(IBrokenLineConfig config, int[] scoresArr) {
+        //设置分数
+        this.mValues = scoresArr;
+        //设置图形属性
         this.mLeftTextArr = config.getLeftTextArr();
         this.mBottomTextArr = config.getBottomTextArr();
-        this.mValues = config.getValues();
         this.mMaxValue = config.getMaxValue();
         this.mBottomStressPointIndex = config.getBottomStressPointIndex();
         this.mStressPointColor = config.getStressPointColor();

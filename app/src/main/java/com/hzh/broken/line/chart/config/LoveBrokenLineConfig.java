@@ -11,7 +11,7 @@ import android.graphics.Color;
  * Email: hezihao@linghit.com
  */
 
-public abstract class LoveBrokenLineConfig extends BaseBrokenLineConfig {
+public class LoveBrokenLineConfig extends BaseBrokenLineConfig {
 
     @Override
     public int onGetBottomStressPointIndex() {

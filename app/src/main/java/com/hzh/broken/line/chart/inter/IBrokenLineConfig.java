@@ -23,11 +23,6 @@ public interface IBrokenLineConfig {
     String[] onGetBottomTextArr();
 
     /**
-     * 点数据值数组
-     */
-    int[] onGetValues();
-
-    /**
      * 点坐标数值最大值
      */
     int onGetMaxValue();
@@ -92,8 +87,6 @@ public interface IBrokenLineConfig {
     String[] getLeftTextArr();
 
     String[] getBottomTextArr();
-
-    int[] getValues();
 
     int getMaxValue();
 

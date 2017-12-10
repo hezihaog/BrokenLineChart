@@ -10,7 +10,6 @@ import com.hzh.broken.line.chart.inter.IBrokenLineConfig;
  * Date: on 2017/12/8  下午4:37
  * Auther: zihe
  * Descirbe: 基础折线图配置抽象类，只定义基础的，子类去定义具体的折线颜色等属性
- * onGetValues()，该方法是传入数据值数组，需外部调用传入，所以该子类也作为抽象类，并放外部创建子类时必须重写该方法传入
  * Email: hezihao@linghit.com
  */
 
@@ -23,10 +22,6 @@ public abstract class BaseBrokenLineConfig implements IBrokenLineConfig {
      * 底部文本数组
      */
     private String[] bottomTextArr;
-    /**
-     * 数据值
-     */
-    private int[] values;
     /**
      * 图表的最大值
      */
@@ -82,7 +77,6 @@ public abstract class BaseBrokenLineConfig implements IBrokenLineConfig {
     public BaseBrokenLineConfig() {
         this.leftTextArr = onGetLeftTextArr();
         this.bottomTextArr = onGetBottomTextArr();
-        this.values = onGetValues();
         this.maxValue = onGetMaxValue();
         this.bottomStressPointIndex = onGetBottomStressPointIndex();
         this.stressPointColor = onGetStressPointColor();
@@ -157,11 +151,6 @@ public abstract class BaseBrokenLineConfig implements IBrokenLineConfig {
     @Override
     public String[] getBottomTextArr() {
         return bottomTextArr;
-    }
-
-    @Override
-    public int[] getValues() {
-        return values;
     }
 
     @Override

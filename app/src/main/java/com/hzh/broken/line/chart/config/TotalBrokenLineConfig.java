@@ -11,7 +11,7 @@ import android.graphics.Color;
  * Email: hezihao@linghit.com
  */
 
-public abstract class TotalBrokenLineConfig extends BaseBrokenLineConfig {
+public class TotalBrokenLineConfig extends BaseBrokenLineConfig {
     /**
      * 着重色原点角标
      */
